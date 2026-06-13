@@ -1,0 +1,6 @@
+{
+  "name": "VIDYA Campus Connect",
+  "description": "A high-fidelity real-time mobile reference application designed for university staff to instantly search phone lines, verify locations, and track department presence status updates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Departments rules
+    // Schema: name, code, building, iconName
+    function isValidDepartment(data) {
+      return data.keys().hasAll(['id', 'name', 'code', 'building'])
+        && data.keys().size() <= 6
+        && data.id is string && data.id.size() <= 64
+        && data.name is string && data.name.size() <= 128
+        && data.code is string && data.code.size() <= 16
+        && data.building is string && data.building.size() <= 128
+        && (!data.keys().hasAny(['iconName']) || (data.iconName is string && data.iconName.size() <= 64));
+    }
+
+    match /departments/{deptId} {
+      allow read: if true;
+      allow create, update: if isSignedIn() && isValidId(deptId) && isValidDepartment(incoming());
+      allow delete: if isSignedIn() && isValidId(deptId);
+    }
+
+    // Staff rules
+    // Schema: id, name, email, phone, departmentId, title, office, updatedAt, updatedBy, avatarUrl
+    function isValidStaff(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'phone', 'departmentId', 'title', 'updatedAt'])
+        && data.keys().size() <= 10
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 128
+        && data.email is string && data.email.size() <= 128
+        && data.phone is string && data.phone.size() <= 64
+        && data.departmentId is string && data.departmentId.size() <= 128
+        && data.title is string && data.title.size() <= 128
+        && (!data.keys().hasAny(['office']) || (data.office is string && data.office.size() <= 128))
+        && (!data.keys().hasAny(['updatedBy']) || (data.updatedBy is string && data.updatedBy.size() <= 128))
+        && (!data.keys().hasAny(['avatarUrl']) || (data.avatarUrl is string && data.avatarUrl.size() <= 1048576));
+    }
+
+    match /staff/{staffId} {
+      allow read: if true;
+      allow create, update: if isSignedIn() && isValidId(staffId) && isValidStaff(incoming());
+      allow delete: if isSignedIn() && isValidId(staffId);
+    }
+
+    // Live Activity Logs rules
+    // Schema: id, staffId, staffName, action, timestamp
+    function isValidLog(data) {
+      return data.keys().hasAll(['id', 'staffId', 'staffName', 'action', 'timestamp'])
+        && data.keys().size() <= 6
+        && data.id is string && data.id.size() <= 64
+        && data.staffId is string && data.staffId.size() <= 128
+        && data.staffName is string && data.staffName.size() <= 128
+        && data.action is string && data.action.size() <= 500
+        && data.timestamp is string && data.timestamp.size() <= 64;
+    }
+
+    match /logs/{logId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(logId) && isValidLog(incoming());
+      allow update, delete: if false;
+    }
+  }
+}

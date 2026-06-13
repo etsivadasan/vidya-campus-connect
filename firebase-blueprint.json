@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "staff": {
+      "title": "Staff Member",
+      "description": "A staff or faculty member of the campus",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the staff member" },
+        "name": { "type": "string", "description": "Full name of the staff member" },
+        "email": { "type": "string", "description": "University email address" },
+        "phone": { "type": "string", "description": "Direct phone number or extension" },
+        "departmentId": { "type": "string", "description": "Associated department identifier" },
+        "title": { "type": "string", "description": "Professional job title" },
+        "office": { "type": "string", "description": "Office location on campus" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Timestamp of the last status update" },
+        "updatedBy": { "type": "string", "description": "Identifier or name of who made the dynamic update" },
+        "avatarUrl": { "type": "string", "description": "Profile picture URL or Base64 data link" }
+      },
+      "required": ["id", "name", "email", "phone", "departmentId", "title", "updatedAt"]
+    },
+    "departments": {
+      "title": "Department",
+      "description": "A campus department",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the department" },
+        "name": { "type": "string", "description": "Full formal name of the department" },
+        "code": { "type": "string", "description": "Short code, e.g., CS, ADM, REG" },
+        "building": { "type": "string", "description": "Primary campus building" },
+        "iconName": { "type": "string", "description": "Lucide icon identifier" }
+      },
+      "required": ["id", "name", "code", "building"]
+    },
+    "logs": {
+      "title": "Activity Log",
+      "description": "A real-time action or status change log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique log ID" },
+        "staffId": { "type": "string", "description": "Staff ID" },
+        "staffName": { "type": "string", "description": "Staff name" },
+        "action": { "type": "string", "description": "Action performed" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Time of modification" }
+      },
+      "required": ["id", "staffId", "staffName", "action", "timestamp"]
+    }
+  },
+  "firestore": {
+    "staff": {
+      "schema": "staff",
+      "description": "Collection of staff and faculty members with live updates"
+    },
+    "departments": {
+      "schema": "departments",
+      "description": "Collection of formal university departments"
+    },
+    "logs": {
+      "schema": "logs",
+      "description": "Real-time records of campus presence and update activities"
+    }
+  }
+}
