@@ -153,7 +153,10 @@ export function setSimulatedUser(user: { email: string; name: string; staffId?: 
   }
   // Dispatch local storage change event or custom event for UI updates
   window.dispatchEvent(new Event('storage'));
+<<<<<<< HEAD
   window.dispatchEvent(new Event('campus_directory_auth_change'));
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
 }
 
 // --------------------------------------------------------------------

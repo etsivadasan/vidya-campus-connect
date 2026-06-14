@@ -29,8 +29,12 @@ import {
   ExternalLink,
   Upload,
   Camera,
+<<<<<<< HEAD
   Image as ImageIcon,
   Download
+=======
+  Image as ImageIcon
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
 } from 'lucide-react';
 
 interface ManageDirectoryModalProps {
@@ -65,18 +69,28 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
     if (isFirebaseActive && auth) {
       const unsub = onAuthStateChanged(auth, (user) => {
         if (user) {
+<<<<<<< HEAD
           const u = {
             email: user.email || '',
             name: user.displayName || user.email || 'Admin Staff'
           };
           setSessionUser(u);
           localStorage.setItem('campus_directory_sim_user', JSON.stringify(u));
+=======
+          setSessionUser({
+            email: user.email || '',
+            name: user.displayName || user.email || 'Admin Staff'
+          });
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
         } else {
           setSessionUser(null);
         }
         setIsAuthLoading(false);
+<<<<<<< HEAD
         window.dispatchEvent(new Event('storage'));
         window.dispatchEvent(new Event('campus_directory_auth_change'));
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
       });
       return () => unsub();
     } else {
@@ -123,16 +137,23 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
     localStorage.setItem('campus_directory_sim_user', JSON.stringify(user));
     setSessionUser(user);
     window.dispatchEvent(new Event('storage'));
+<<<<<<< HEAD
     window.dispatchEvent(new Event('campus_directory_auth_change'));
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
   };
 
   const handleSignOut = async () => {
     try {
       await signOutUser();
+<<<<<<< HEAD
       localStorage.removeItem('campus_directory_sim_user');
       setSessionUser(null);
       window.dispatchEvent(new Event('storage'));
       window.dispatchEvent(new Event('campus_directory_auth_change'));
+=======
+      setSessionUser(null);
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
     } catch (err) {
       console.error(err);
     }
@@ -141,6 +162,7 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
   const [activeTab, setActiveTab] = useState<'staff' | 'depts'>('staff');
   const [searchQuery, setSearchQuery] = useState('');
   
+<<<<<<< HEAD
   // CSV Bulk Management states
   const [csvPanelOpen, setCsvPanelOpen] = useState(false);
   const [csvError, setCsvError] = useState('');
@@ -286,6 +308,8 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
     reader.readAsText(file);
   };
 
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
   // Form modes: 'list' | 'add_staff' | 'edit_staff' | 'add_dept' | 'edit_dept'
   const [formMode, setFormMode] = useState<'list' | 'add_staff' | 'edit_staff' | 'add_dept' | 'edit_dept'>('list');
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
@@ -728,6 +752,7 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
             </div>
           )}
           {sessionUser && (
+<<<<<<< HEAD
             <a
               href="/campus-connect-source.zip"
               download="campus-connect-source.zip"
@@ -739,6 +764,8 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
             </a>
           )}
           {sessionUser && (
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
             <button
               onClick={handleSignOut}
               className="p-1 px-2 bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white rounded-md text-[10px] font-bold transition flex items-center gap-1 cursor-pointer mr-2.5"
@@ -829,6 +856,7 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
               )}
             </div>
 
+<<<<<<< HEAD
             {/* BULK CSV IMPORT SUBPANEL (ACCORDION STYLE) */}
             {activeTab === 'staff' && (
               <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-xs space-y-2.5">
@@ -896,6 +924,8 @@ export default function ManageDirectoryModal({ staffList, departments, onClose }
               </div>
             )}
 
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
             {/* TAB : STAFF REGISTER LIST */}
             {activeTab === 'staff' && (
               <div className="space-y-2">

@@ -3,10 +3,15 @@ import {
   subscribeStaff, 
   subscribeDepartments, 
   isFirebaseActive,
+<<<<<<< HEAD
   seedCloudDatabase,
   auth
 } from './lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+=======
+  seedCloudDatabase
+} from './lib/firebase';
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
 import { StaffMember, Department } from './types';
 import DepartmentCard from './components/DepartmentCard';
 import StaffDetailsModal from './components/StaffDetailsModal';
@@ -51,6 +56,7 @@ export default function App() {
   // Connection Indicator
   const [connectionStatus, setConnectionStatus] = useState<'cloud' | 'simulation'>('simulation');
 
+<<<<<<< HEAD
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null);
 
   // Track Admin Login Session
@@ -109,6 +115,8 @@ export default function App() {
     };
   }, []);
 
+=======
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
   // Trigger seeding of Cloud database if Cloud Mode is active
   useEffect(() => {
     if (isFirebaseActive) {
@@ -229,6 +237,7 @@ export default function App() {
           </div>
           
           <div className="flex items-center gap-1.5 font-sans">
+<<<<<<< HEAD
             {adminUser ? (
               <a
                 href="/campus-connect-source.zip"
@@ -249,6 +258,17 @@ export default function App() {
                 <span>Export ZIP</span>
               </button>
             )}
+=======
+            <a
+              href="/campus-connect-source.zip"
+              download="campus-connect-source.zip"
+              className="p-1 px-2 border border-blue-800 bg-blue-900/40 hover:bg-blue-900/60 text-blue-200 hover:text-white rounded-md text-[9.5px] font-bold flex items-center gap-1 transition shadow-sm cursor-pointer"
+              title="Download source code ZIP for Windows 11 compilation"
+            >
+              <Download className="w-2.5 h-2.5 text-blue-450" />
+              <span>Export ZIP</span>
+            </a>
+>>>>>>> a1c2b38fac6c803cb627620a10b473419f55613f
             <button
               onClick={() => setIsManageOpen(true)}
               className="p-1 px-2 border border-slate-705 bg-slate-800 hover:bg-slate-750 text-slate-100 hover:text-white rounded-md text-[9.5px] font-bold flex items-center gap-1 transition shadow-sm cursor-pointer"
